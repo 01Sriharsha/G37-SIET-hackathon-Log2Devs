@@ -8,7 +8,7 @@ const InventoryPage: React.FC = () => {
 
   return (
     <div className="h-screen overflow-auto flex items-center justify-center">
-      <div className="bg-gray-100 p-6 w-1/2 h-[90vh] mx-auto rounded-xl shadow-lg">
+      <div className="bg-gray-100 p-6 w-1/2 h-[90vh] mx-auto overflow-auto rounded-xl shadow-lg">
       <h1 className="text-3xl font-bold mb-6 text-center text-green-800">
         Crop Inventory
       </h1>

@@ -1,5 +1,5 @@
 // src/store/useInventoryStore.ts
-import { create } from 'zustand';
+import { create } from "zustand";
 
 export type Crop = {
   id: number;
@@ -19,10 +19,22 @@ type InventoryState = {
   removeCrop: (id: number) => void;
 };
 
+const crops =
+  (typeof window !== undefined && JSON.parse(localStorage.getItem("crops")!)) ||
+  [];
+
 export const useInventoryStore = create<InventoryState>((set) => ({
-  crops: [],
+  crops,
   addCrop: (crop) =>
-    set((state) => ({ crops: [...state.crops, crop] })),
+    set((state) => {
+      const crops = [...state.crops, crop];
+      localStorage.setItem("crops", JSON.stringify(crops));
+      return { crops };
+    }),
   removeCrop: (id) =>
-    set((state) => ({ crops: state.crops.filter((crop) => crop.id !== id) })),
+    set((state) => {
+      const crops = state.crops.filter((crop) => crop.id !== id);
+      localStorage.setItem("crops", JSON.stringify(crops));
+      return { crops };
+    }),
 }));
