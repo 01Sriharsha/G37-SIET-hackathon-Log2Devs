@@ -20,8 +20,7 @@ type InventoryState = {
 };
 
 const crops =
-  (typeof window !== undefined &&
-    JSON.parse(localStorage.getItem("crops")!)) ||
+  (typeof window !== undefined && JSON.parse(localStorage.getItem("crops")!)) ||
   [];
 
 export const useInventoryStore = create<InventoryState>((set) => ({
