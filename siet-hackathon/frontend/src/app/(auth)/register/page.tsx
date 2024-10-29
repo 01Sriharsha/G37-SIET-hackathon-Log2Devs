@@ -79,7 +79,7 @@ export default function CreateAccountForm() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-green-100 to-green-200">
       <Card className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-xl">
         <CardContent>
           <h1 className="text-3xl font-bold mb-6">Create new account.</h1>
