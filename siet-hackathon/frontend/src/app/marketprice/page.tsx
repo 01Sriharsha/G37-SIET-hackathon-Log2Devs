@@ -140,13 +140,13 @@ const MarketPriceTracker: React.FC = () => {
                 </p>
                 <div className="mt-4 w-full text-center">
                   <p className="text-green-800 font-bold">
-                    Min Price: ₹{price?.min_price}
+                    Min Price: ₹{price?.min_price}/q
                   </p>
                   <p className="text-red-600 font-bold">
-                    Max Price: ₹{price?.max_price}
+                    Max Price: ₹{price?.max_price}/q
                   </p>
                   <p className="text-blue-600 font-bold">
-                    Modal Price: ₹{price?.modal_price}
+                    Modal Price: ₹{price?.modal_price}/q
                   </p>
                 </div>
               </div>

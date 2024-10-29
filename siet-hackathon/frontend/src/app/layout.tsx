@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import AppProvider from "@/provider";
+import Header from "@/components/Header/Header";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,7 +33,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AppProvider>{children}</AppProvider>
+        <AppProvider>
+          <div className="h-screen bg-gradient-to-b from-green-100 to-green-200">
+            <Header />
+            <div className="pt-20 h-full overflow-auto">{children}</div>
+          </div>
+        </AppProvider>
       </body>
     </html>
   );

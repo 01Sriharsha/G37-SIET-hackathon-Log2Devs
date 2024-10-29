@@ -125,7 +125,7 @@ export default function WeatherCard() {
   }, [fetchTriggered]); // Dependency array now only includes fetchTriggered
 
   return (
-    <Card className="w-full max-w-3xl mx-auto bg-gradient-to-br from-blue-100 to-green-100">
+    <Card className="w-full max-w-3xl mx-auto">
       <CardHeader>
         <CardTitle className="text-xl font-bold text-center text-gray-800">7-Day Weather Forecast</CardTitle>
       </CardHeader>

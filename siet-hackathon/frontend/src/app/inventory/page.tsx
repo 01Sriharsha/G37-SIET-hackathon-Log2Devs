@@ -7,8 +7,9 @@ const InventoryPage: React.FC = () => {
   const { crops, removeCrop } = useInventoryStore();
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+    <div className="h-screen overflow-auto flex items-center justify-center">
+      <div className="bg-gray-100 p-6 w-1/2 h-[90vh] mx-auto rounded-xl shadow-lg">
+      <h1 className="text-3xl font-bold mb-6 text-center text-green-800">
         Crop Inventory
       </h1>
 
@@ -69,6 +70,7 @@ const InventoryPage: React.FC = () => {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };

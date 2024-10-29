@@ -1,4 +1,4 @@
-import Preview from "@/components/home/Preview"
+import Preview from "@/components/home/Preview";
 import Preview2 from "@/components/home/Preview2";
 import Hero from "@/components/home/Hero";
 import Header from "@/components/Header/Header";
