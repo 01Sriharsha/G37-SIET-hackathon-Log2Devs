@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         enum:['Male','Female','Others'],
         required:true
+    },
+    address:{
+        type:String,
+        required:true
     }
 }, {
     timestamps: true  // Corrected option name to "timestamps"
