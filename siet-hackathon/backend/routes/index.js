@@ -3,7 +3,6 @@ import authRouter from './auth.route.js'
 import cropRouter from './crop.route.js'
 import { authenticate } from '../middleware/auth.middleware.js'
 import marketRouter from './market.route.js'
-import predictRouter from './predict.route.js'
 const router=express.Router()
 
 router.use('/auth',authRouter)
