@@ -4,7 +4,6 @@ import connectDb from "./utils/db.js"
 import cors from 'cors'
 import cookieParser from "cookie-parser"
 import router from "./routes/index.js"
-import generateData from "./utils/readData.js"
 const app=express()
 app.get("/",(req,res)=>{
     res.send("hello")
@@ -21,7 +20,6 @@ app.use(cookieParser())
 
 //routes
 app.use('/api',router)
-generateData()
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT,()=>{

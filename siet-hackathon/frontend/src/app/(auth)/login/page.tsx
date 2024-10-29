@@ -1,37 +1,55 @@
 "use client";
-import { useState, FormEvent } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { Phone, EyeOff, Eye } from "lucide-react";
+import axios from "@/lib/axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Apple, Facebook, Phone, EyeOff, Eye } from "lucide-react";
-import axios from "axios";
+import { toast } from "sonner";
+import { useAuthStore } from "@/state/auth";
+import Link from "next/link";
 
 export default function LoginForm() {
+  const router = useRouter();
+  const { authenticate } = useAuthStore();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
+  const { isPending, mutate } = useMutation({
+    mutationFn: async () => {
+      const { data } = await axios({
+        method: "post",
+        endpoint: "/auth/login",
+        body: { phone, password },
+        showErrorToast: true,
+      });
 
-    try {
-      const response = await axios.post("/api/login", { phone, password });
-      console.log("Login successful", response.data);
-      // Handle success (e.g., navigate to dashboard or show message)
-    } catch (error) {
-      console.error("Login failed", error);
-      // Handle error (e.g., show error message to user)
-    }
-  };
+      if (data && data.data) {
+        console.log(data);
+        authenticate(data.data);
+        toast.success(data.message);
+        router.replace("/");
+      }
+    },
+  });
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-green-100 to-green-200 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-lg p-8 sm:p-10 bg-white rounded-xl shadow-2xl">
         <CardContent>
           <h1 className="text-4xl font-extrabold mb-8 text-center">
             Log in to your account
           </h1>
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form
+            className="space-y-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              mutate();
+            }}
+          >
             <div className="relative">
               <Input
                 type="tel"
@@ -66,6 +84,7 @@ export default function LoginForm() {
               </Button>
             </div>
             <Button
+              isLoading={isPending}
               type="submit"
               className="w-full py-4 bg-green-500 hover:bg-green-600 text-white text-xl font-semibold rounded-lg"
             >
@@ -93,10 +112,11 @@ export default function LoginForm() {
             </div>
           </div> */}
           <p className="mt-8 text-center text-lg text-gray-500">
+            {/*  eslint-disable-next-line react/no-unescaped-entities */}
             Don't have an account?
-            <a href="#" className="text-green-500 hover:text-green-600 ml-2">
+            <Link href="/register" className="text-green-500 hover:text-green-600 ml-2">
               Create Account
-            </a>
+            </Link>
           </p>
         </CardContent>
       </Card>

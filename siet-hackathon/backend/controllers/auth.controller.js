@@ -7,7 +7,7 @@ import { generateVerificationOTP } from "../utils/token.js";
 dotenv.config()
 export const registerUser=async (req,res,next)=>{
     const {username,password,phone,gender,crops,address}=req.body
-    if (password.length < 6) {
+    if (password?.length < 6) {
         return res.status(400).json({ message: "Password less than 6 characters" })
       }
       const userExists = await User.findOne({ phone });
@@ -36,6 +36,8 @@ export const registerUser=async (req,res,next)=>{
             }
             )
           } catch (err) {
+            console.log(crops ,  err.message);
+            
             res.status(401).json({
               message: "User not successfully created",
               data: err.message,
