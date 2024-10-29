@@ -1,8 +1,12 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 const cropSchema=mongoose.Schema({
     crop:{
         type:String,
         unique:true,
+    },
+    user:{
+        type:Schema.Types.ObjectId,
+        required:true
     },
     quantity:{
         type:Number,
