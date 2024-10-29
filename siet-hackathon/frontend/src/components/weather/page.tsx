@@ -68,16 +68,16 @@ const districts = [
 const getWeatherIcon = (condition: string) => {
   switch (condition) {
     case 'Sunny':
-      return <Sun className="w-6 h-6 text-yellow-400" />; // Slightly larger icon
+      return <span className="text-yellow-400">☀️</span>;
     case 'Partly cloudy':
     case 'Cloudy':
-      return <Cloud className="w-6 h-6 text-gray-400" />; // Slightly larger icon
+      return <span className="text-gray-400">☁️</span>;
     case 'Rain':
-      return <CloudRain className="w-6 h-6 text-blue-400" />; // Slightly larger icon
+      return <span className="text-blue-400">🌧️</span>;
     case 'Thunderstorm':
-      return <CloudLightning className="w-6 h-6 text-purple-400" />; // Slightly larger icon
+      return <span className="text-purple-400">⛈️</span>;
     default:
-      return <Cloud className="w-6 h-6 text-gray-400" />; // Slightly larger icon
+      return <span className="text-gray-400">🌫️</span>; // Default icon for undefined conditions
   }
 };
 
@@ -105,9 +105,9 @@ export default function WeatherCard() {
       setWeatherData(response.data);
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        setError(`Error: ${err.response?.data?.error?.message || 'Failed to fetch weather data.'}`);
+        setError(`🚨 Error: ${err.response?.data?.error?.message || 'Failed to fetch weather data.'}`);
       } else {
-        setError('Failed to fetch weather data. Please try again.');
+        setError('🚨 Failed to fetch weather data. Please try again.');
       }
     }
     setLoading(false);
@@ -125,9 +125,9 @@ export default function WeatherCard() {
   }, [fetchTriggered]); // Dependency array now only includes fetchTriggered
 
   return (
-    <Card className="w-full max-w-3xl mx-auto">
+    <Card className="w-full max-w-3xl mx-auto shadow-lg border border-gray-300 rounded-lg">
       <CardHeader>
-        <CardTitle className="text-xl font-bold text-center text-gray-800">7-Day Weather Forecast</CardTitle>
+        <CardTitle className="text-xl font-bold text-center text-gray-800">🌤️ 7-Day Weather Forecast 🌦️</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex items-center justify-between mb-6">
@@ -135,10 +135,8 @@ export default function WeatherCard() {
             value={selectedDistrict.name}
             onValueChange={(value) => setSelectedDistrict(districts.find(d => d.name === value) || districts[0])}
           >
-            <label className='text-xl font-bold'>
-              Select A District 
-            </label>
-            <SelectTrigger className="w-[150px]"> {/* Smaller width */}
+            <label className='text-xl font-bold'>🌍 Select A District</label>
+            <SelectTrigger className="w-[150px] border-2 border-gray-400 rounded-md"> {/* Smaller width */}
               <SelectValue placeholder="Select a district" />
             </SelectTrigger>
             <SelectContent className='text-xl'>
@@ -149,8 +147,8 @@ export default function WeatherCard() {
               ))}
             </SelectContent>
           </Select>
-          <Button onClick={handleFetchWeatherData} disabled={loading}>
-            {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : 'Go'}
+          <Button onClick={handleFetchWeatherData} disabled={loading} className="bg-blue-500 text-white hover:bg-blue-600">
+            {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : ' Go'}
           </Button>
         </div>
 
@@ -165,14 +163,13 @@ export default function WeatherCard() {
         {weatherData && (
           <div className="grid grid-cols-2 gap-4"> {/* Increased gap for better spacing */}
             {weatherData.forecast.forecastday.map((day) => (
-              <Card key={day.date} className="bg-white p-4 rounded shadow-lg flex flex-col items-center justify-center h-32"> {/* Adjusted height */}
-                <CardTitle className="text-center text-lg font-semibold">{day.date}</CardTitle> {/* Increased font size */}
-                <div className="flex justify-center items-center">
-                  {getWeatherIcon(day.day.condition.text)}
-                  <span className="text-lg font-medium mx-1">{day.day.maxtemp_c}°C</span> {/* Increased font size */}
-                  <span className="text-sm text-gray-500">/{day.day.mintemp_c}°C</span> {/* Adjusted font size */}
-                </div>
-              </Card>
+              <div key={day.date} className="border rounded-lg p-4 bg-white shadow-md hover:shadow-lg transition-shadow duration-300">
+                <h3 className="text-lg font-semibold text-center">{new Date(day.date).toLocaleDateString('en-IN', { weekday: 'long' })}</h3>
+                <p className="text-center">{getWeatherIcon(day.day.condition.text)} {day.day.condition.text}</p>
+                <p className="text-center">
+                  Max: <span className="font-bold">{day.day.maxtemp_c}°C</span> | Min: <span className="font-bold">{day.day.mintemp_c}°C</span>
+                </p>
+              </div>
             ))}
           </div>
         )}
