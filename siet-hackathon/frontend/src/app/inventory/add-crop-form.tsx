@@ -1,5 +1,6 @@
-"use client"
+"use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -16,7 +17,6 @@ export default function AddCropForm() {
     name: "",
     quantity: 0,
     harvestDate: "",
-    location: "",
     type: "",
     description: "",
     condition: "",
@@ -44,7 +44,6 @@ export default function AddCropForm() {
         name: "",
         quantity: 0,
         harvestDate: "",
-        location: "",
         type: "",
         description: "",
         condition: "",
@@ -55,7 +54,9 @@ export default function AddCropForm() {
   };
   return (
     <Dialog>
-      <DialogTrigger>Add Crop</DialogTrigger>
+      <DialogTrigger asChild>
+        <Button className="bg-green-600 hover:bg-green-700">Add Crop</Button>
+      </DialogTrigger>
       <DialogContent className="h-[90vh] overflow-auto">
         <DialogTitle className="text-xl font-semibold text-gray-700 mb-4">
           Add New Crop
@@ -97,16 +98,6 @@ export default function AddCropForm() {
           className="w-full p-2 border border-gray-300 rounded-md mb-4"
         />
 
-        <label className="block font-medium text-gray-600 mb-1">Location</label>
-        <input
-          type="text"
-          name="location"
-          placeholder="Location"
-          value={cropData.location}
-          onChange={handleInputChange}
-          className="w-full p-2 border border-gray-300 rounded-md mb-4"
-        />
-
         <label className="block font-medium text-gray-600 mb-1">
           Crop Type
         </label>
@@ -131,6 +122,7 @@ export default function AddCropForm() {
           value={cropData.description}
           onChange={handleInputChange}
           className="w-full p-2 border border-gray-300 rounded-md mb-4"
+          rows={3}
         />
 
         <label className="block font-medium text-gray-600 mb-1">

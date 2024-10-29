@@ -12,7 +12,9 @@ const InventoryPage: React.FC = () => {
         Crop Inventory
       </h1>
 
-      <AddCropForm />
+      <div className="w-full flex justify-end my-4">
+        <AddCropForm />
+      </div>
 
       {/* Display Section */}
       <div>
@@ -40,10 +42,6 @@ const InventoryPage: React.FC = () => {
                     <p>
                       Harvest Date:{" "}
                       <span className="font-semibold">{crop.harvestDate}</span>
-                    </p>
-                    <p>
-                      Location:{" "}
-                      <span className="font-semibold">{crop.location}</span>
                     </p>
                     <p>
                       Type: <span className="font-semibold">{crop.type}</span>

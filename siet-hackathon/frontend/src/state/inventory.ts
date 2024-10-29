@@ -6,7 +6,6 @@ export type Crop = {
   name: string;
   quantity: number;
   harvestDate: string;
-  location: string;
   type: string;
   description: string;
   condition: string;
