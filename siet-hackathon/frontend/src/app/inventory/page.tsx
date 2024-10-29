@@ -23,7 +23,7 @@ const InventoryPage: React.FC = () => {
           <p className="text-gray-500 text-center">No crops added yet.</p>
         ) : (
           <div className="grid gap-6">
-            {crops.map((crop) => (
+            {crops.map((crop:any) => (
               <div
                 key={crop.id}
                 className="bg-white border border-gray-200 shadow-md rounded-lg p-6 flex flex-col md:flex-row justify-between items-start md:items-center"
