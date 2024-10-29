@@ -30,8 +30,7 @@ const userSchema = new mongoose.Schema({
     },
     crops:[
         {
-            type:Schema.Types.ObjectId,
-            ref:"Crop"
+            type:String
         }
     ],
     gender:{

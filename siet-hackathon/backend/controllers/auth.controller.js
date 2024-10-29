@@ -29,8 +29,8 @@ export const registerUser=async (req,res,next)=>{
                 
                 await sendSMS(user.phone,`your verification OTP is ${Otp}`)
               return res.status(200).json({
-                message: `${user.username}has successfully registered and verification code has been send`,
-                user,
+                message: `${user.username}has successfully registered and verification code has been sent`,
+                data:user,
                 
               })
             }
@@ -38,7 +38,7 @@ export const registerUser=async (req,res,next)=>{
           } catch (err) {
             res.status(401).json({
               message: "User not successfully created",
-              error: err.message,
+              data: err.message,
             })
           }
       
@@ -58,7 +58,7 @@ export const login=async (req,res,next)=>{
     if (!user) {
       res.status(401).json({
         message: "Login not successful",
-        error: "User not found",
+        data: "User not found",
       })
     } else {
         const isMatch = await user.comparePassword(password);
@@ -74,13 +74,13 @@ export const login=async (req,res,next)=>{
           });
       res.status(200).json({
         message: `${user.username} has logged in successfully`,
-        user,
+        data:user,
       })
     }
   } catch (error) {
     res.status(400).json({
       message: "An error occurred",
-      error: error.message,
+      data: error.message,
     })
   }
 }

@@ -15,7 +15,7 @@ export const createCrop=async (req,res)=>{
 
     })
     await newCrop.save()
-    res.status(201).json({message:"New crop added",newCrop:newCrop})
+    res.status(201).json({message:"New crop added",data:newCrop})
 }
 
 export const getAllCrops = async (req, res) => {
