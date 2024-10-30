@@ -9,7 +9,7 @@ import { useAuthStore } from "@/state/auth";
 const Header = () => {
   const { isAuthenticated, logout } = useAuthStore();
   return (
-    <header className="z-50 bg-green-400 p-2 fixed inset-0 shadow-sm h-20">
+    <header className="z-[999] bg-green-400 p-2 fixed inset-0 shadow-sm h-20">
       <div className="container mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Image
@@ -40,6 +40,24 @@ const Header = () => {
               className="bg-white rounded-lg p-2.5 text-green-600 hover:underline"
             >
               Market Price
+            </Link>
+            <Link
+              href="/cropPrediction"
+              className="bg-white rounded-lg p-2.5 text-green-600 hover:underline"
+            >
+              Predict
+            </Link>
+            <Link
+              href="/schedule"
+              className="bg-white rounded-lg p-2.5 text-green-600 hover:underline"
+            >
+              Schedule
+            </Link>
+            <Link
+              href="/products"
+              className="bg-white rounded-lg p-2.5 text-green-600 hover:underline"
+            >
+              Products
             </Link>
             <Button onClick={logout}>Logout</Button>
           </div>

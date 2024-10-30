@@ -1,6 +1,8 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import axios from "@/lib/axios";
+import { useMutation } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
 
 const CropRecommendation: React.FC = () => {
   const [nitrogen, setNitrogen] = useState<number>(0);
@@ -10,44 +12,44 @@ const CropRecommendation: React.FC = () => {
   const [humidity, setHumidity] = useState<number>(0);
   const [ph, setPh] = useState<number>(0);
   const [rainfall, setRainfall] = useState<number>(0);
-  const [result, setResult] = useState<string>('');
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    
-    const inputData = {
-      "N":nitrogen,
-      "P":phosphorus,
-      "K":potassium,
-      "temperature":temperature,
-      "humidity":humidity,
-      "ph":ph,
-      "rainfall":rainfall,
-    };
-
-    try {
-      const response = await axios({
+  const { isPending, mutate, data } = useMutation({
+    mutationFn: async () => {
+      const inputData = {
+        N: nitrogen,
+        P: phosphorus,
+        K: potassium,
+        temperature: temperature,
+        humidity: humidity,
+        ph: ph,
+        rainfall: rainfall,
+      };
+      const { data } = await axios({
         method: "post",
-        endpoint: "/auth/login",
+        endpoint: "/predict",
         body: inputData,
         showErrorToast: true,
       });
-      console.log(response);
-    //   const crops = response.data.predicted_crop; // Adjust based on your API response structure
-    //   setResult(`🌾 Recommended Crops: ${crops.join(', ')} 🌱`);
-    } catch (error) {
-      console.error('Error fetching crop recommendations:', error);
-      setResult('❌ Error fetching recommendations. Please try again.');
-    }
-  };
+      return data?.data.predicted_crop || null;
+    },
+  });
 
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-        <h2 className="text-2xl font-semibold text-center mb-4">🌿 Crop Recommendation Tool</h2>
-        <form onSubmit={handleSubmit}>
+        <h2 className="text-2xl font-semibold text-center mb-4">
+          🌿 Crop Recommendation Tool
+        </h2>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            mutate();
+          }}
+        >
           <div className="mb-4">
-            <label className="block text-gray-700 mb-1">Nitrogen (kg/ha):</label>
+            <label className="block text-gray-700 mb-1">
+              Nitrogen (kg/ha):
+            </label>
             <input
               type="number"
               value={nitrogen}
@@ -58,7 +60,9 @@ const CropRecommendation: React.FC = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 mb-1">Phosphorus (kg/ha):</label>
+            <label className="block text-gray-700 mb-1">
+              Phosphorus (kg/ha):
+            </label>
             <input
               type="number"
               value={phosphorus}
@@ -69,7 +73,9 @@ const CropRecommendation: React.FC = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 mb-1">Potassium (kg/ha):</label>
+            <label className="block text-gray-700 mb-1">
+              Potassium (kg/ha):
+            </label>
             <input
               type="number"
               value={potassium}
@@ -80,7 +86,9 @@ const CropRecommendation: React.FC = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 mb-1">Temperature (°C):</label>
+            <label className="block text-gray-700 mb-1">
+              Temperature (°C):
+            </label>
             <input
               type="number"
               value={temperature}
@@ -123,9 +131,20 @@ const CropRecommendation: React.FC = () => {
               required
             />
           </div>
-          <button type="submit" className="bg-blue-500 text-white rounded-md p-2 w-full hover:bg-blue-600">Get Recommendation</button>
+          <Button
+            isLoading={isPending}
+            disabled={isPending}
+            type="submit"
+            className="bg-blue-500 text-white rounded-md p-2 w-full hover:bg-blue-600"
+          >
+            Get Recommendation
+          </Button>
         </form>
-        {result && <div className="mt-4 p-2 text-center text-lg text-gray-800">{result}</div>}
+        {data && (
+          <div className="mt-4 p-2 text-center text-lg text-gray-800">
+            {data}
+          </div>
+        )}
       </div>
     </div>
   );

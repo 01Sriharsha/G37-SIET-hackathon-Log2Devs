@@ -13,6 +13,7 @@ const ProductForm: React.FC = () => {
 
   return (
     <div className="h-screen grid place-items-center p-4 bg-gray-50">
+      <div className="space-y-6 h-screen">
       <div className="w-full flex justify-between items-center gap-2">
         <h2 className="text-2xl text-green-700 font-bold">All Products</h2>
         {user && <ProductFormDialog />}
@@ -76,6 +77,7 @@ const ProductForm: React.FC = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };
