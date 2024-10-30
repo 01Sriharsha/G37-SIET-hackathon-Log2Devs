@@ -4,24 +4,24 @@ import { Check } from "lucide-react";
 export default function Preview() {
   return (
     <div className="bg-[#FFF9E5] min-h-screen flex items-center justify-center p-4">
-      <div className="max-w-6xl w-full flex flex-col md:flex-row items-center gap-8">
+      <div className=" w-full flex flex-col md:flex-row items-center gap-8">
         <div className="flex-1 flex justify-center relative">
           <Image
-            src="/logo.webp"
+            src="/1.jpg"
             alt="AgriWise crop prediction screen"
             width={250}
             height={500}
             className="rounded-lg shadow-lg z-10"
           />
           <Image
-            src="/logo.webp"
+            src="/2.jpg"
             alt="AgriWise inventory management screen"
             width={250}
             height={500}
             className="rounded-lg shadow-lg absolute left-24 top-8 -rotate-6"
           />
           <Image
-            src="/logo.webp"
+            src="/3.jpg"
             alt="AgriWise product overview screen"
             width={250}
             height={500}

@@ -6,9 +6,9 @@ import React from "react";
 const Hero = () => {
   return (
     <div>
-      <div className="min-h-screen bg-white">
+      <div className="bg-white">
         
-        <main className="container mx-auto px-4 py-12">
+        <main className="container mx-auto px-4 py-2">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="md:w-1/2 mb-8 md:mb-0">
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">

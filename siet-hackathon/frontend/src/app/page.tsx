@@ -9,8 +9,8 @@ export default function Component() {
     <>
       <Header />
       <Hero />
-      <Preview />
       <Preview2 />
+      <Preview />
       <Footer />
     </>
   );
